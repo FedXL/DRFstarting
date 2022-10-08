@@ -3,12 +3,17 @@ import io
 from rest_framework import serializers
 from .models import Women
 
-# class WomenSerializer(serializers.ModelSerializer):
-#     class Meta:
-#         model = Women
-#         fields = ('title', 'cat_id')
+class WomenSerializer(serializers.ModelSerializer):
+    user = serializers.HiddenField(default=serializers.CurrentUserDefault())
 
-class WomenSerializer(serializers.Serializer):
+    class Meta:
+        model = Women
+        #fields = ('title', 'content', 'cat')
+        fields = "__all__"
+
+
+
+class WomenSerializerCustom(serializers.Serializer):
     title = serializers.CharField(max_length=255)
     content = serializers.CharField()
     time_create = serializers.DateTimeField(read_only=True)
